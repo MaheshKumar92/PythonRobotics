@@ -26,6 +26,7 @@ from CubicSpline import cubic_spline_planner
 
 SIM_LOOP = 500
 
+
 # Parameter
 MAX_SPEED = 50.0 / 3.6  # maximum speed [m/s]
 MAX_ACCEL = 2.0  # maximum acceleration [m/ss]
@@ -295,8 +296,8 @@ def main():
     print(__file__ + " start!!")
 
     # way points
-    wx = [0.0, 10.0, 20.5, 35.0, 70.5]
-    wy = [0.0, -6.0, 5.0, 6.5, 0.0]
+    wx = [0.0, 10.0, 20.5, 35.0, 70.5, 100.0, 110.7, 150.5]
+    wy = [0.0, -6.0, 5.0, 6.5, 0.0, -7.0, -10.0, -12.0]
     # obstacle lists
     ob = np.array([[20.0, 10.0],
                    [30.0, 6.0],
@@ -321,7 +322,7 @@ def main():
     max_right = 5.0  # maximum right boundary [m]
 
     left_tx, left_ty, right_tx, right_ty = generate_parallel_paths(tx,ty, -max_left, max_right)
-
+    frame_number = 0
     for i in range(SIM_LOOP):
         path = frenet_optimal_planning(csp, s0, c_speed, c_accel, c_d, c_d_d, c_d_dd, ob, max_left, max_right)
 
@@ -358,6 +359,9 @@ def main():
             plt.title("v[km/h]:" + str(c_speed * 3.6)[0:4])
             plt.grid(True)
             plt.pause(0.0001)
+            # Save the current frame
+            plt.savefig(f'frames/frame_{frame_number:04d}.png')
+            frame_number += 1
 
     print("Finish")
     if show_animation:  # pragma: no cover
