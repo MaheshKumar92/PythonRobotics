@@ -360,8 +360,8 @@ def main():
             plt.grid(True)
             plt.pause(0.0001)
             # Save the current frame
-            plt.savefig(f'frames/frame_{frame_number:04d}.png')
-            frame_number += 1
+            # plt.savefig(f'frames/frame_{frame_number:04d}.png')
+            # frame_number += 1
 
     print("Finish")
     if show_animation:  # pragma: no cover
